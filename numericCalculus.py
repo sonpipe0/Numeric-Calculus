@@ -74,14 +74,17 @@ class Newton(Interpolation):
     def interpolate(self) -> Callable[[int], int]:
         def function(x: int) -> int:
             interpolation_sum: int = 0
+            sum_eval: int = 0
             for i in range(len(self.points)):
                 Q: int = 1
+                Qeval: int = 0
                 for j in range(i):
-                    Q *= self.multiplicatory(self.points[j][0], self.points[i][0])
-                c: float = (self.points[i][1] - interpolation_sum) / Q
+                    Qeval *= self.multiplicatory(self.points[j][0], self.points[i][0])
+                c: float = (self.points[i][1] - sum_eval) / Q
                 for j in range(i):
                     Q *= self.multiplicatory(self.points[j][0], x)
-                    interpolation_sum += c * Q
+                interpolation_sum += c * Q
+                sum_eval += c * Qeval
             return interpolation_sum
 
         return function
@@ -102,5 +105,3 @@ if __name__ == '__main__':
             break
     for interpolator in interpolators:
         interpolator.show(interpolator.interpolate())
-
-
