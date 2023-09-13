@@ -102,3 +102,5 @@ if __name__ == '__main__':
             break
     for interpolator in interpolators:
         interpolator.show(interpolator.interpolate())
+
+
